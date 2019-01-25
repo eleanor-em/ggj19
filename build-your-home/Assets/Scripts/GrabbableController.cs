@@ -13,11 +13,9 @@ public class GrabbableController : MonoBehaviour {
     }
 
     public void OnSelect() {
-        Debug.Log("I am selected, yay");
         sprite.color = selectedCol;
     }
     public void OnDeselect() {
-        Debug.Log("I am deselected, unyay");
         sprite.color = Color.white;
     }
 

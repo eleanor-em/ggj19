@@ -81,8 +81,8 @@ public class MoveController : MonoBehaviour
 
     private bool IsOnMap()
     {
-        return (tileMapCollider.bounds.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, tileMapCollider.bounds.min.z))
-    && tileMapCollider.bounds.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, tileMapCollider.bounds.max.z)));
+        return tileMapCollider.bounds.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, tileMapCollider.bounds.min.z))
+    && tileMapCollider.bounds.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, tileMapCollider.bounds.max.z));
         // bounds.contain has issues with 2D for some reason, always expecting a vector 3. Hopefully intersects is an ok replacement.
          
         //return !tileMapCollider.bounds.Intersects(collider.bounds);
