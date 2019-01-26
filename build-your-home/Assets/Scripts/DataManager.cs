@@ -18,11 +18,10 @@ public class DataManager : MonoBehaviour {
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
-        Debug.Log(SavePath);
     }
 
-    private readonly static string[] firstWord = { "apple", "banana", "celery", "durian", "eggplant" };
-    private readonly static string[] secondWord = { "abode", "boudoir", "castle", "dwelling" };
+    private readonly static string[] firstWord = { "Fox", "Warm", "Cold", "Happy", "Sunny", "Birds", "Windy", "Sweet", "Tropical", "Cozy", "Serene", "Hedgehog", "Bear", "Rabbit", "Possum", "Koala", "Kangaroo", "Cats", "Puppy", "Frogs", "Platypus", "Hoppy", "Snuggly", "Jackalopes", "Deer", "Kangaroo", "Green", "Trees", "Daisy", "Cuckoo", "Gumtrees", "Ducks" };
+    private readonly static string[] secondWord = { "Hut", "Pines", "Peaks", "Falls", "Rivers", "Creek", "Home", "Bungalow", "Lodge", "Cottage", "Homestead", "Mill", "End", "Bridgelands", "Woods", "Corner", "Cabin", "Villa", "Hill", "Copse", "Ville", "View", "Cedars", "Barn", "Rise", "Halls", "Byways", "Court", "Hedgerows", "Glade", "Stables", "Cove" };
     public static void ChooseUsername() {
         var first = firstWord[Random.Range(0, firstWord.Length)];
         var second = secondWord[Random.Range(0, secondWord.Length)];

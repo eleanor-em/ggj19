@@ -19,7 +19,10 @@ module.exports = {
 
             const dt = dateTime.create()
             const formatted = dt.format('Y-m-d H:M:S')
-            console.log(`[${formatted}] SEND ${instance.item.name} sent by ${instance.sender}`)
+            // no idea why this happens
+            if (instance != null) {
+                console.log(`[${formatted}] SEND ${instance.item.name} sent by ${instance.sender}`)
+            }
 
             res.json(instance)
         } catch (err) {
