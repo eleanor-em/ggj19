@@ -240,11 +240,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ccd91c87fa4df409ec4098553c43ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Kirby
-  description: A Kirby plush toy. Everyone loves Kirby!
-  owner: Sakurai
-  sender: Eleanor
-  solid: 0
+  data:
+    name: 
+    description: 
+    owner: 
+    sender: 
+    solid: 0
+    x: 0
+    y: 0
+    z: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

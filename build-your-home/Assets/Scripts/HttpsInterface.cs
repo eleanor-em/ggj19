@@ -18,8 +18,7 @@ public class Instance {
     public string sender;
 }
 
-public class HttpsInterface {
-
+public class HttpsInterface: MonoBehaviour {
     private static string auth;
     private static string Auth {
         get {
@@ -55,7 +54,7 @@ public class HttpsInterface {
     public static IEnumerator PutAnInstance(string name) {
         // build the json string. this sucks I know sorry
         var json = Auth.Remove(Auth.Length - 2);
-        json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"Placeholder\"\n}}";
+        json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"{PlayerPrefs.GetString("username")}\"\n}}";
         Debug.Log(json);
 
         UnityWebRequest req = UnityWebRequest.Put("localhost:8080/server/put", json);
