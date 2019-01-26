@@ -15,6 +15,7 @@ module.exports = {
             const instanceCount = await Instance.countDocuments()
             const index = Math.floor(Math.random() * instanceCount)
             const instance = await Instance.findOneAndDelete().skip(index).populate('item')
+            console.log(`SEND ${instance.item.name} sent by ${instance.sender}`)
             res.json(instance)
         } catch (err) {
             next(err)
@@ -33,7 +34,7 @@ module.exports = {
                         sender
                     })
                     await instance.save()
-                    console.log(`saved instance of ${item}, sent by ${sender}`)
+                    console.log(`SAVE ${item} sent by ${sender}`)
                     res.status(200).send('ok')
                 } else {
                     next('no such item')

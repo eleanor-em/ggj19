@@ -20,7 +20,6 @@ public class MoveController : MonoBehaviour {
     private void Start() {
         tileMapCollider = tileMap.GetComponent<Collider2D>();
         collider = GetComponent<Collider2D>();
-        StartCoroutine(HttpsInterface.GetAnInstance(i => { }));
     }
 
     void Update() {
