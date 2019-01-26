@@ -20,6 +20,7 @@ async function populate() {
                 })
                 await instance.save()
             }
+            process.exit()
         }
     } catch (err) {
         console.log(err);
