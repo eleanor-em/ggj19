@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114007175044200154}
   - component: {fileID: 212178701637209562}
   - component: {fileID: 61061809157667178}
+  - component: {fileID: 114861559657976958}
   m_Layer: 8
   m_Name: '[Prefab]Item'
   m_TagString: Untagged
@@ -79,11 +80,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ccd91c87fa4df409ec4098553c43ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  owner: 
-  sender: 
-  id: 
+  data:
+    name: 
+    description: 
+    owner: 
+    sender: 
+    solid: 0
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &114089573710119966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +102,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCol: {r: 0, g: 1, b: 0, a: 1}
   grabbedAlpha: 0.5
+--- !u!114 &114861559657976958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213300673207360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96af6af4b4b0b144f85cb0b2c006018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldFloat: 0
 --- !u!212 &212178701637209562
 SpriteRenderer:
   m_ObjectHideFlags: 1
