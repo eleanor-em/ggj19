@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GrabController : MonoBehaviour
-{
+public class GrabController : MonoBehaviour {
     public LayerMask grabbableLayer;
     [SerializeField]
     private GameObject dialogueBox;
@@ -13,40 +12,31 @@ public class GrabController : MonoBehaviour
     private GrabbableController target = null;
     private bool holding = false;
 
-    private void Start()
-    {
+    private void Start() {
         moveController = GetComponent<MoveController>();
     }
 
-    void Update()
-    {
+    void Update() {
         CheckForInteract();
         CheckForGrabbable();
         CheckForGrabAction();
         UpdateHeld();
     }
 
-    private void CheckForGrabbable()
-    {
-        if (!holding)
-        {
+    private void CheckForGrabbable() {
+        if (!holding) {
             // check the facing direction for a grabbable object
             var hit = Physics2D.Raycast(transform.position, moveController.Direction, 1, grabbableLayer.value);
-            if (hit.collider != null)
-            {
+            if (hit.collider != null) {
                 // if we hit something, check if it's both a grabbable and a different target
                 var hitController = hit.collider.GetComponent<GrabbableController>();
-                if (hitController?.gameObject != target?.gameObject)
-                {
+                if (hitController?.gameObject != target?.gameObject) {
                     target?.OnDeselect();
                     target = hitController;
                     target.OnSelect();
                 }
-            }
-            else
-            {
-                if (target != null)
-                {
+            } else {
+                if (target != null) {
                     target.OnDeselect();
                     target = null;
                 }
@@ -54,13 +44,10 @@ public class GrabController : MonoBehaviour
         }
     }
 
-    private void CheckForInteract()
-    {
-        if (Input.GetButtonDown("Interact") && target != null)
-        {
+    private void CheckForInteract() {
+        if (Input.GetButtonDown("Interact") && target != null) {
             Debug.Log("Clicked Interact");
-            if (!holding)
-            {
+            if (!holding) {
                 ItemController item = target.transform.GetComponent<ItemController>();
                 GameObject dialogue = Instantiate(dialogueBox);
                 dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
@@ -68,40 +55,31 @@ public class GrabController : MonoBehaviour
         }
     }
 
-    private void CheckForGrabAction()
-    {
-        if (Input.GetButtonDown("Pickup") && target != null)
-        {
-            if (!holding)
-            {
+    private void CheckForGrabAction() {
+        if (Input.GetButtonDown("Pickup") && target != null) {
+            if (!holding) {
                 holding = true;
                 target.OnGrab();
-            }
-            else
-            {
+            } else {
                 holding = false;
                 target.OnDrop();
             }
         }
     }
 
-    private void UpdateHeld()
-    {
-        if (holding)
-        {
+    private void UpdateHeld() {
+        if (holding) {
             Vector3 newPosition = SnapToPoint5(transform.position + moveController.Direction);
 
             target.transform.position = newPosition;
         }
     }
 
-    Vector3 SnapToPoint5(Vector3 input)
-    {
+    Vector3 SnapToPoint5(Vector3 input) {
         return new Vector3((float)(Mathf.Floor(input.x) + 0.5), (float)(Mathf.Floor(input.y) + 0.5), input.z);
     }
 
-    Vector3 SnapPosition(Vector3 input, float factor = 1f)
-    {
+    Vector3 SnapPosition(Vector3 input, float factor = 1f) {
         if (factor <= 0f)
             throw new UnityException("factor argument must be above 0");
 
