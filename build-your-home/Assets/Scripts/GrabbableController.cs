@@ -5,11 +5,12 @@ using UnityEngine;
 public class GrabbableController : MonoBehaviour {
     public Color selectedCol = Color.green;
     public float grabbedAlpha = 0.5f;
-
+    FloatyController floatyController;
     private SpriteRenderer sprite;
 
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
+        floatyController = transform.GetComponent<FloatyController>();
     }
 
     public void OnSelect() {
@@ -24,5 +25,6 @@ public class GrabbableController : MonoBehaviour {
     }
     public void OnDrop() {
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
+        floatyController.Interact();
     }
 }

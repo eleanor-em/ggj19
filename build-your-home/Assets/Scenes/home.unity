@@ -243,12 +243,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     name: Kirby
-    description: A Kirby plush toy. Everyone loves Kirby
-    owner: Masahiro Sakurai
+    description: Extremely cuddly. Almost too cuddly
+    owner: James
     sender: Eleanor
-    solid: 0
-    x: 0
-    y: 0
+    solid: 1
+    x: 0.5
+    y: -1.5
     z: 0
 --- !u!114 &315096065
 MonoBehaviour:
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96af6af4b4b0b144f85cb0b2c006018f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldFloat: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2450,6 +2451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88edb469d4615f4b86889bd121435b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
 --- !u!61 &1650254675
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2610,7 +2613,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746973667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1486415198}
