@@ -1,0 +1,15 @@
+const https = require('https')
+const fs = require('fs')
+const app = require('../app')
+const port = process.env.PORT || 8080
+
+/*const options = {
+    key: fs.readFileSync('./keys/key.pem'),
+    cert: fs.readFileSync('./keys/chain.pem')
+}*/
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}...`)
+})
+// HTTPS will have to wait till tomorrow 'cos my raspberry pi doesn't have its ports forwarded lmao
+//https.createServer(options, app).listen(port)
