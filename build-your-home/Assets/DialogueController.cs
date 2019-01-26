@@ -7,7 +7,7 @@ public class DialogueController : MonoBehaviour {
 
     private GameObject player;
     private Vector3 guyScreenPos;
-    private Camera camera;
+    new private Camera camera;
     ItemController itemDetails;
     private float decayTime = 5f;
 
@@ -38,9 +38,9 @@ public class DialogueController : MonoBehaviour {
 
     private void UpdateText()
     {
-        GameObject.Find("Description").GetComponent<Text>().text = itemDetails.description;
-        GameObject.Find("SenderText").GetComponent<Text>().text = "Shared by: " + itemDetails.sender;
-        GameObject.Find("OwnerText").GetComponent<Text>().text = "Owned by: " + itemDetails.owner;
+        GameObject.Find("Description").GetComponent<Text>().text = itemDetails.data.description;
+        GameObject.Find("SenderText").GetComponent<Text>().text = "Shared by: " + itemDetails.data.sender;
+        GameObject.Find("OwnerText").GetComponent<Text>().text = "Owned by: " + itemDetails.data.owner;
 
     }
 }
