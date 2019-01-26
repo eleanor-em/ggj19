@@ -28,8 +28,9 @@ public class DialogueController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        
         guyScreenPos = camera.WorldToScreenPoint(player.transform.position);
-        transform.position = guyScreenPos;
+        transform.position = guyScreenPos - new Vector3(0, 0, -1); ;
         decayTime -= Time.deltaTime;
         if (decayTime < 0) {
             Destroy(gameObject);
