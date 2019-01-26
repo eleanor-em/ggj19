@@ -11,6 +11,10 @@ const itemSchema = new Schema({
         type: String,
         required: true
     },
+    solid: {
+        type: Boolean,
+        default: true
+    },
     owner: {
         type: String
     }

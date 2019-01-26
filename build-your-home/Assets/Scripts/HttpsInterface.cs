@@ -10,7 +10,7 @@ public class Item {
     public string name;
     public string description;
     public string owner;
-    public string _id;
+    public bool solid;
 }
 [System.Serializable]
 public class Instance {
@@ -28,7 +28,6 @@ public class HttpsInterface {
                 StreamReader reader = new StreamReader(path);
                 auth = reader.ReadToEnd();
             }
-            Debug.Log(auth);
             return auth;
         }
     }
@@ -42,10 +41,32 @@ public class HttpsInterface {
 
         if (!req.isNetworkError && req.responseCode == 200) {
             var res = req.downloadHandler.text;
-            Debug.Log(res);
-            callback(JsonUtility.FromJson<Instance>(res));
+            try {
+                callback(JsonUtility.FromJson<Instance>(res));
+            } catch (ArgumentException e) {
+                Debug.Log(e);
+                callback(null);
+            }
         } else {
             Debug.Log(req.error);
+        }
+    }
+
+    public static IEnumerator PutAnInstance(string name) {
+        // build the json string. this sucks I know sorry
+        var json = Auth.Remove(Auth.Length - 2);
+        json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"Placeholder\"\n}}";
+        Debug.Log(json);
+
+        UnityWebRequest req = UnityWebRequest.Put("localhost:8080/server/put", json);
+        req.method = UnityWebRequest.kHttpVerbPOST;
+        req.SetRequestHeader("Content-Type", "application/json");
+        req.SetRequestHeader("Accept", "text/plain");
+        yield return req.SendWebRequest();
+
+        if (req.isNetworkError || req.responseCode != 200) {
+            Debug.Log(req.error);
+        } else {
             Debug.Log(req.downloadHandler.text);
         }
     }

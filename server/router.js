@@ -3,9 +3,14 @@ const instancesController = require('./controllers/instance')
 const router = new express.Router()
 
 function errorHandler(err, res) {
-    console.log(err)
-    res.status(err.status || 500)
-    res.json({ err })
+    if (err) {
+        console.log(err)
+        res.status(err.status || 500)
+        res.json({ err })
+    } else {
+        res.status(200)
+        res.send('ok')
+    }
 }
 
 router.use(async (req, res, next) => {
@@ -20,6 +25,8 @@ router.use(async (req, res, next) => {
     }
 })
 
+router.get('/', instancesController.list)
 router.post('/get', instancesController.getAny)
+router.post('/put', instancesController.addOne)
 router.use((err, req, res, next) => errorHandler(err, res))
 module.exports = router
