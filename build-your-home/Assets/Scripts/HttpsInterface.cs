@@ -32,7 +32,7 @@ public class HttpsInterface: MonoBehaviour {
     }
     
     public static IEnumerator GetAnInstance(Action<Instance> callback) {
-        UnityWebRequest req = UnityWebRequest.Put("localhost:8080/server/get", Auth);
+        UnityWebRequest req = UnityWebRequest.Put("noneuclideangirl.net:13337/server/get", Auth);
         req.method = UnityWebRequest.kHttpVerbPOST;
         req.SetRequestHeader("Content-Type", "application/json");
         req.SetRequestHeader("Accept", "application/json");
@@ -56,7 +56,7 @@ public class HttpsInterface: MonoBehaviour {
         var json = Auth.Remove(Auth.Length - 2);
         json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"{PlayerPrefs.GetString("username")}\"\n}}";
 
-        UnityWebRequest req = UnityWebRequest.Put("localhost:8080/server/put", json);
+        UnityWebRequest req = UnityWebRequest.Put("noneuclideangirl.net:13337/server/put", json);
         req.method = UnityWebRequest.kHttpVerbPOST;
         req.SetRequestHeader("Content-Type", "application/json");
         req.SetRequestHeader("Accept", "text/plain");

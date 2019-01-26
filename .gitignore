@@ -6,7 +6,7 @@
 Assets/AssetStoreTools*
 
 # secret stuff
-auth.json
+# auth.json
 
 # Visual Studio cache directory
 .vs/
