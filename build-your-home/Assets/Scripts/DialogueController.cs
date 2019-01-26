@@ -42,7 +42,6 @@ public class DialogueController : MonoBehaviour {
     }
 
     private void UpdateText() {
-        Debug.Log(itemDetails.name);
         description.text = itemDetails.data.description;
         name.text = "Shared by: " + itemDetails.data.sender;
         owner.text = "Owned by: " + itemDetails.data.owner;

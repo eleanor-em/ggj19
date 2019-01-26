@@ -8,6 +8,10 @@ public class GrabController : MonoBehaviour {
     [SerializeField]
     private GameObject dialogueBox;
 
+    public GameObject GrabbedObject {
+        get { if (holding) { return target.gameObject; } else { return null; }}
+    }
+
     private MoveController moveController;
     private GrabbableController target = null;
     private bool holding = false;
@@ -46,7 +50,6 @@ public class GrabController : MonoBehaviour {
 
     private void CheckForInteract() {
         if (Input.GetButtonDown("Interact") && target != null) {
-            Debug.Log("Clicked Interact");
             if (!holding) {
                 ItemController item = target.transform.GetComponent<ItemController>();
                 GameObject dialogue = Instantiate(dialogueBox);
