@@ -7,11 +7,15 @@ public class FloatyController : MonoBehaviour {
     BoxCollider2D myCollider;
     BoxCollider2D river;
 
+    private ItemController itemCtl;
+
     // Use this for initialization
     void Start () {
         myCollider = transform.GetComponent<BoxCollider2D>();
         river = GameObject.FindGameObjectWithTag("river").GetComponent<BoxCollider2D>();
         Interact();
+
+        itemCtl = GetComponent<ItemController>();
 	}
 
 
@@ -33,7 +37,8 @@ public class FloatyController : MonoBehaviour {
 
             if (myCollider.bounds.max.y < river.transform.GetComponent<RiverController>().endPos.y)
             {
-                Destroy(gameObject);//Should send not destroy
+                Destroy(gameObject);
+                HttpsInterface.PutAnInstance(itemCtl.data.name);
             }
         }
 	}
