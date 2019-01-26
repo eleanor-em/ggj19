@@ -50,7 +50,7 @@ public class GrabController : MonoBehaviour {
             if (!holding) {
                 ItemController item = target.transform.GetComponent<ItemController>();
                 GameObject dialogue = Instantiate(dialogueBox);
-                dialogue.GetComponentInChildren<Text>().text = item.description;
+                dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
             }
         }
     }
