@@ -15,7 +15,8 @@ module.exports = {
         try {
             const instanceCount = await Instance.countDocuments()
             const index = Math.floor(Math.random() * instanceCount)
-            const instance = await Instance.findOneAndDelete().skip(index).populate('item')
+            //const instance = await Instance.findOneAndDelete().skip(index).populate('item')
+            const instance = await Instance.findOne().skip(index).populate('item')
 
             const dt = dateTime.create()
             const formatted = dt.format('Y-m-d H:M:S')
@@ -45,7 +46,7 @@ module.exports = {
 
                     const dt = dateTime.create()
                     const formatted = dt.format('Y-m-d H:M:S')
-                    console.log(`[${formatted}] SAVE ${instance.item.name} sent by ${instance.sender}`)
+                    console.log(`[${formatted}] SAVE ${item} sent by ${instance.sender}`)
                     res.send('ok')
                 } else {
                     next('no such item')

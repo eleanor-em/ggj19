@@ -27,7 +27,6 @@ public class ItemController : MonoBehaviour {
     }
 
     public void LoadSprite() {
-        Debug.Log($"loading {data.name}");
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(data.name);
     }
 }

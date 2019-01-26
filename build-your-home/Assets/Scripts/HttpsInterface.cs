@@ -43,7 +43,7 @@ public class HttpsInterface: MonoBehaviour {
             try {
                 callback(JsonUtility.FromJson<Instance>(res));
             } catch (ArgumentException e) {
-                Debug.Log(e);
+                Debug.LogError(e);
                 callback(null);
             }
         } else {
@@ -55,7 +55,6 @@ public class HttpsInterface: MonoBehaviour {
         // build the json string. this sucks I know sorry
         var json = Auth.Remove(Auth.Length - 2);
         json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"{PlayerPrefs.GetString("username")}\"\n}}";
-        Debug.Log(json);
 
         UnityWebRequest req = UnityWebRequest.Put("localhost:8080/server/put", json);
         req.method = UnityWebRequest.kHttpVerbPOST;
@@ -65,8 +64,6 @@ public class HttpsInterface: MonoBehaviour {
 
         if (req.isNetworkError || req.responseCode != 200) {
             Debug.Log(req.error);
-        } else {
-            Debug.Log(req.downloadHandler.text);
         }
     }
 }

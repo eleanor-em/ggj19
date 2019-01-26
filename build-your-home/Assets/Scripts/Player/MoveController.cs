@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 public class MoveController : MonoBehaviour {
+    public LayerMask grabbableLayer;
     public float Speed = 5.0f;
     public GameObject tileMap;
     public Vector3 Direction {
@@ -15,11 +16,12 @@ public class MoveController : MonoBehaviour {
     private Vector3 prevPos;
     private Collider2D tileMapCollider;
     new private Collider2D collider;
-
+    private GrabController grabCtl;
 
     private void Start() {
         tileMapCollider = tileMap.GetComponent<Collider2D>();
         collider = GetComponent<Collider2D>();
+        grabCtl = GetComponent<GrabController>();
     }
 
     void Update() {
@@ -29,17 +31,52 @@ public class MoveController : MonoBehaviour {
 
         // try to move horizontally
         var currentPrevPos = prevPos;
-        transform.position += horizontal;
-        if (!IsOnMap()) {
-            transform.position = prevPos;
-        } else {
-            currentPrevPos = transform.position;
+        if (CheckRaycast(horizontal)) {
+            transform.position += horizontal;
+            if (!IsOnMap()) {
+                transform.position = prevPos;
+            } else {
+                currentPrevPos = transform.position;
+            }
         }
         // try to move vertically
-        transform.position += vertical;
-        if (!IsOnMap()) {
-            transform.position = currentPrevPos;
+        if (CheckRaycast(vertical)) {
+            transform.position += vertical;
+            if (!IsOnMap()) {
+                transform.position = currentPrevPos;
+            }
         }
+    }
+
+    private bool CheckRaycast(Vector3 movement) {
+        // you are not expected to understand this
+        float ext = collider.bounds.extents.x;
+        var dir = movement.normalized;
+        var perp = Vector3.Cross(Vector3.forward, dir);
+        Debug.Log(perp);
+
+        var hit = Physics2D.Raycast(transform.position, dir, movement.magnitude + ext, grabbableLayer);
+        if (hit.collider != null) {
+            var itemCtl = hit.collider.GetComponent<ItemController>();
+            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                return false;
+            }
+        }
+        hit = Physics2D.Raycast(transform.position + ext * perp, dir, movement.magnitude + ext, grabbableLayer);
+        if (hit.collider != null) {
+            var itemCtl = hit.collider.GetComponent<ItemController>();
+            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                return false;
+            }
+        }
+        hit = Physics2D.Raycast(transform.position - ext * perp, dir, movement.magnitude + ext, grabbableLayer);
+        if (hit.collider != null) {
+            var itemCtl = hit.collider.GetComponent<ItemController>();
+            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void LateUpdate() {
@@ -53,10 +90,12 @@ public class MoveController : MonoBehaviour {
         }
 
     }
-
+    private bool HackyIntersect(Bounds other) {
+        // 2D colliders don't play nicely with z
+        return other.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, other.min.z))
+            && other.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, other.max.z));
+    }
     private bool IsOnMap() {
-        return tileMapCollider.bounds.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, tileMapCollider.bounds.min.z))
-    && tileMapCollider.bounds.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, tileMapCollider.bounds.max.z));
-        // bounds.contain has issues with 2D for some reason, always expecting a vector 3. Hopefully intersects is an ok replacement.
+        return HackyIntersect(tileMapCollider.bounds);
     }
 }
