@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
-    public float normalSpeed;
-    public float dashSpeed;
+    public float Speed = 5.0f;
     public GameObject tileMap;
     public Vector3 Direction
     {
@@ -19,20 +18,6 @@ public class MoveController : MonoBehaviour
     private Collider2D tileMapCollider;
     new private Collider2D collider;
 
-    private float Speed
-    {
-        get
-        {
-            if (Input.GetButton("Dash"))
-            {
-                return dashSpeed;
-            }
-            else
-            {
-                return normalSpeed;
-            }
-        }
-    }
 
     private void Start()
     {
@@ -84,7 +69,5 @@ public class MoveController : MonoBehaviour
         return tileMapCollider.bounds.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, tileMapCollider.bounds.min.z))
     && tileMapCollider.bounds.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, tileMapCollider.bounds.max.z));
         // bounds.contain has issues with 2D for some reason, always expecting a vector 3. Hopefully intersects is an ok replacement.
-         
-        //return !tileMapCollider.bounds.Intersects(collider.bounds);
     }
 }

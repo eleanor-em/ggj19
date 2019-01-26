@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GrabController : MonoBehaviour
 {
     public LayerMask grabbableLayer;
+    [SerializeField]
+    private GameObject dialogueBox;
 
     private MoveController moveController;
     private GrabbableController target = null;
@@ -17,6 +20,7 @@ public class GrabController : MonoBehaviour
 
     void Update()
     {
+        CheckForInteract();
         CheckForGrabbable();
         CheckForGrabAction();
         UpdateHeld();
@@ -46,6 +50,20 @@ public class GrabController : MonoBehaviour
                     target.OnDeselect();
                     target = null;
                 }
+            }
+        }
+    }
+
+    private void CheckForInteract()
+    {
+        if (Input.GetButtonDown("Interact") && target != null)
+        {
+            Debug.Log("Clicked Interact");
+            if (!holding)
+            {
+                ItemController item = target.transform.GetComponent<ItemController>();
+                GameObject dialogue = Instantiate(dialogueBox);
+                dialogue.GetComponentInChildren<Text>().text = item.description;
             }
         }
     }
