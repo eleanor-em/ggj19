@@ -5,7 +5,7 @@ const router = require('./router')
 const app = express()
 require('dotenv').config()
 
-mongoose.set('uesCreateIndex', true)
+mongoose.set('useCreateIndex', true)
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true
 })

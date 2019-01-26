@@ -51,7 +51,7 @@ public class HttpsInterface: MonoBehaviour {
         }
     }
 
-    public static IEnumerator PutAnInstance(string name) {
+    public static IEnumerator PutAnInstance(string name, Action callback) {
         // build the json string. this sucks I know sorry
         var json = Auth.Remove(Auth.Length - 2);
         json += $",\n\t\"item\": \"{name}\",\n\t\"sender\": \"{PlayerPrefs.GetString("username")}\"\n}}";
@@ -65,5 +65,8 @@ public class HttpsInterface: MonoBehaviour {
         if (req.isNetworkError || req.responseCode != 200) {
             Debug.Log(req.error);
         }
+
+        Debug.Log("despawn");
+        callback();
     }
 }
