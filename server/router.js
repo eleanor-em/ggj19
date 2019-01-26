@@ -1,4 +1,5 @@
 const express = require('express')
+const itemsController = require('./controllers/item')
 const instancesController = require('./controllers/instance')
 const router = new express.Router()
 
@@ -28,5 +29,7 @@ router.use(async (req, res, next) => {
 router.get('/', instancesController.list)
 router.post('/get', instancesController.getAny)
 router.post('/put', instancesController.addOne)
+router.get('/item', itemsController.list)
+router.post('/item', itemsController.add)
 router.use((err, req, res, next) => errorHandler(err, res))
 module.exports = router

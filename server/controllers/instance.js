@@ -1,4 +1,5 @@
 const Instance = require('../models/instance')
+const dateTime = require('node-datetime');
 const Item = require('../models/item')
 
 module.exports = {
@@ -15,7 +16,14 @@ module.exports = {
             const instanceCount = await Instance.countDocuments()
             const index = Math.floor(Math.random() * instanceCount)
             const instance = await Instance.findOneAndDelete().skip(index).populate('item')
-            console.log(`SEND ${instance.item.name} sent by ${instance.sender}`)
+
+            const dt = dateTime.create()
+            const formatted = dt.format('Y-m-d H:M:S')
+            // no idea why this happens
+            if (instance != null) {
+                console.log(`[${formatted}] SEND ${instance.item.name} sent by ${instance.sender}`)
+            }
+
             res.json(instance)
         } catch (err) {
             next(err)
@@ -34,8 +42,11 @@ module.exports = {
                         sender
                     })
                     await instance.save()
-                    console.log(`SAVE ${item} sent by ${sender}`)
-                    res.status(200).send('ok')
+
+                    const dt = dateTime.create()
+                    const formatted = dt.format('Y-m-d H:M:S')
+                    console.log(`[${formatted}] SAVE ${instance.item.name} sent by ${instance.sender}`)
+                    res.send('ok')
                 } else {
                     next('no such item')
                 }

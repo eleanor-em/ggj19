@@ -7,48 +7,44 @@ public class DialogueController : MonoBehaviour {
 
     private GameObject player;
     private Vector3 guyScreenPos;
-    private Camera camera;
+    new private Camera camera;
     ItemController itemDetails;
     private float decayTime = 5f;
     [SerializeField]
     private Text description;
     [SerializeField]
-    private Text name;
+    new private Text name;
     [SerializeField]
     private Text owner;
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         player = FindObjectOfType<MoveController>().transform.gameObject;
         transform.SetParent(FindObjectOfType<Canvas>().transform, true);
         camera = FindObjectOfType<Camera>();
         UpdateText();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         guyScreenPos = camera.WorldToScreenPoint(player.transform.position);
         transform.position = guyScreenPos;
         decayTime -= Time.deltaTime;
-        if(decayTime< 0)
-        {
+        if (decayTime < 0) {
             Destroy(gameObject);
         }
     }
 
-    public void SetItem(ItemController item)
-    {
+    public void SetItem(ItemController item) {
         itemDetails = item;
         UpdateText();
     }
 
-    private void UpdateText()
-    {
+    private void UpdateText() {
         Debug.Log(itemDetails.name);
-        description.text = itemDetails.description;
-        name.text = "Shared by: " + itemDetails.sender;
-        owner.text = "Owned by: " + itemDetails.owner;
-
+        description.text = itemDetails.data.description;
+        name.text = "Shared by: " + itemDetails.data.sender;
+        owner.text = "Owned by: " + itemDetails.data.owner;
     }
 }
