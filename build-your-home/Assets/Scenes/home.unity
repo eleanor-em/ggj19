@@ -241,11 +241,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ccd91c87fa4df409ec4098553c43ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Kirby
-  description: A Kirby plush toy. Everyone loves Kirby!
-  owner: Sakurai
-  sender: Eleanor
-  solid: 0
+  data:
+    name: 
+    description: 
+    owner: 
+    sender: 
+    solid: 0
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &315096065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,7 +2465,7 @@ GameObject:
   - component: {fileID: 1650254674}
   m_Layer: 0
   m_Name: Beachfront
-  m_TagString: Untagged
+  m_TagString: river
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
