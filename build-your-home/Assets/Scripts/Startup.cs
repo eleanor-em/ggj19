@@ -25,10 +25,12 @@ public class Startup : MonoBehaviour {
                 itemControl.data.solid = instance.item.solid;
                 itemControl.LoadSprite();
 
-                newItem.transform.position += new Vector3(0.5f, 0.5f, 0);
-            }
+                if (itemControl.data.owner == "") {
+                    itemControl.data.owner = "Unknown";
+                }
 
-            StartCoroutine(HttpsInterface.PutAnInstance("Kitchen Sink"));
+                newItem.transform.position += new Vector3(2.5f, 0.5f, 0);
+            }
         }));
 	}
 }
