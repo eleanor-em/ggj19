@@ -31,10 +31,10 @@ public class FloatyController : MonoBehaviour {
         {
             transform.position -= new Vector3(0,1,0) * Time.deltaTime;
 
-            //if (myCollider.bounds.max.y > )
-            //{
-            //     //Should send not destroy
-            //}
+            if (myCollider.bounds.max.y < river.transform.GetComponent<RiverController>().endPos.y)
+            {
+                Destroy(gameObject);//Should send not destroy
+            }
         }
 	}
 }
