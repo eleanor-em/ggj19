@@ -11,26 +11,4 @@ public class Startup : MonoBehaviour {
             DataManager.ChooseUsername();
         }
     }
-
-    void Start () {
-        StartCoroutine(HttpsInterface.GetAnInstance(instance => {
-            if (instance != null) {
-                var newItem = Instantiate(itemPrefab);
-
-                var itemControl = newItem.GetComponent<ItemController>();
-                itemControl.data.name = instance.item.name;
-                itemControl.data.description = instance.item.description;
-                itemControl.data.owner = instance.item.owner;
-                itemControl.data.sender = instance.sender;
-                itemControl.data.solid = instance.item.solid;
-                itemControl.LoadSprite();
-
-                if (itemControl.data.owner == "") {
-                    itemControl.data.owner = "Unknown";
-                }
-
-                newItem.transform.position += new Vector3(2.5f, 0.5f, 0);
-            }
-        }));
-	}
 }
