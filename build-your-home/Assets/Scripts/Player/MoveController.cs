@@ -13,12 +13,21 @@ public class MoveController : MonoBehaviour {
         private set;
     }
 
+    [SerializeField]
+    private Sprite guyFront;
+    [SerializeField]
+    private Sprite guyBack;
+    [SerializeField]
+    private Sprite guySide;
+
     private Vector3 prevPos;
+    private SpriteRenderer renderer;
     private Collider2D tileMapCollider;
     new private Collider2D collider;
     private GrabController grabCtl;
 
     private void Start() {
+        renderer = GetComponent<SpriteRenderer>();
         tileMapCollider = tileMap.GetComponent<Collider2D>();
         collider = GetComponent<Collider2D>();
         grabCtl = GetComponent<GrabController>();
@@ -46,6 +55,27 @@ public class MoveController : MonoBehaviour {
                 transform.position = currentPrevPos;
             }
         }
+
+        if(Direction.y > 0)
+        {
+            renderer.sprite = guyBack;
+        }else if(Direction.y < 0)
+        {
+            renderer.sprite = guyFront;
+        }
+        else
+        {
+            renderer.sprite = guySide;
+            if (Direction.x > 0)
+            {
+                renderer.flipX = true;
+            }
+            else if (Direction.x < 0)
+            {
+                renderer.flipX = false;
+            }
+        }
+
     }
 
     private bool CheckRaycast(Vector3 movement) {
