@@ -53,7 +53,6 @@ public class MoveController : MonoBehaviour {
         float ext = collider.bounds.extents.x;
         var dir = movement.normalized;
         var perp = Vector3.Cross(Vector3.forward, dir);
-        Debug.Log(perp);
 
         var hit = Physics2D.Raycast(transform.position, dir, movement.magnitude + ext, grabbableLayer);
         if (hit.collider != null) {
@@ -82,7 +81,7 @@ public class MoveController : MonoBehaviour {
     private void LateUpdate() {
         // find the direction that lines up best with the change between previous and current position
         var directions = new[] { Vector3.right, Vector3.up, Vector3.left, Vector3.down };
-        var delta = transform.position - prevPos;
+        var delta = Input.GetAxis("Horizontal") * Vector3.right + Input.GetAxis("Vertical") * Vector3.up;
         if (delta.magnitude > 0) {
             // just compare dot products with cardinal directions
             Direction = directions.OrderBy(v => Vector3.Dot(v, delta))
@@ -90,12 +89,9 @@ public class MoveController : MonoBehaviour {
         }
 
     }
-    private bool HackyIntersect(Bounds other) {
-        // 2D colliders don't play nicely with z
-        return other.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, other.min.z))
-            && other.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, other.max.z));
-    }
     private bool IsOnMap() {
-        return HackyIntersect(tileMapCollider.bounds);
+        return tileMapCollider.bounds.Contains(new Vector3(collider.bounds.min.x, collider.bounds.min.y, tileMapCollider.bounds.min.z))
+    && tileMapCollider.bounds.Contains(new Vector3(collider.bounds.max.x, collider.bounds.max.y, tileMapCollider.bounds.max.z));
+        // bounds.contain has issues with 2D for some reason, always expecting a vector 3. Hopefully intersects is an ok replacement.
     }
 }
