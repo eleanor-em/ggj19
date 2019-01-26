@@ -10,12 +10,20 @@ public class DialogueController : MonoBehaviour {
     private Camera camera;
     ItemController itemDetails;
     private float decayTime = 5f;
+    [SerializeField]
+    private Text description;
+    [SerializeField]
+    private Text name;
+    [SerializeField]
+    private Text owner;
+
 
     // Use this for initialization
     void Start () {
         player = FindObjectOfType<MoveController>().transform.gameObject;
         transform.SetParent(FindObjectOfType<Canvas>().transform, true);
         camera = FindObjectOfType<Camera>();
+        UpdateText();
     }
 	
 	// Update is called once per frame
@@ -33,14 +41,14 @@ public class DialogueController : MonoBehaviour {
     {
         itemDetails = item;
         UpdateText();
-        
     }
 
     private void UpdateText()
     {
-        GameObject.Find("Description").GetComponent<Text>().text = itemDetails.description;
-        GameObject.Find("SenderText").GetComponent<Text>().text = "Shared by: " + itemDetails.sender;
-        GameObject.Find("OwnerText").GetComponent<Text>().text = "Owned by: " + itemDetails.owner;
+        Debug.Log(itemDetails.name);
+        description.text = itemDetails.description;
+        name.text = "Shared by: " + itemDetails.sender;
+        owner.text = "Owned by: " + itemDetails.owner;
 
     }
 }
