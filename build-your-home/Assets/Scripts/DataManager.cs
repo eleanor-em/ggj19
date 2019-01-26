@@ -15,6 +15,7 @@ public class DataManager : MonoBehaviour {
     private static string SavePath {
         get { return Application.persistentDataPath + "/data"; }
     }
+    
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -28,15 +29,20 @@ public class DataManager : MonoBehaviour {
         PlayerPrefs.SetString("username", $"{first} {second}");
     }
 
-    public void Save() {
+    public static void Save() {
         using (FileStream file = File.Create(SavePath)) {
             BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(file, FindObjectsOfType<ItemController>().Select(comp => comp.data).ToList());
+            var saveList = FindObjectsOfType<ItemController>().Select(comp => comp.data).ToList();
+            foreach (var data in saveList) {
+                Debug.Log(data.x);
+            }
+            bf.Serialize(file, saveList);
+            Debug.Log("saved!");
         }
     }
 
-    public void Load() {
-        if (File.Exists(SavePath)) {
+    public static void Load(GameObject itemPrefab) {
+        if (SaveExists()) {
             using (FileStream file = File.Open(SavePath, FileMode.Open)) {
                 BinaryFormatter bf = new BinaryFormatter();
                 List<ItemData> items = (List<ItemData>)bf.Deserialize(file);
@@ -47,7 +53,16 @@ public class DataManager : MonoBehaviour {
                     itemController.LoadSprite();
                     newItem.transform.position = new Vector3(item.x, item.y, item.z);
                 }
+                Debug.Log("loaded!");
             }
         }
+    }
+
+    public static void DeleteSave() {
+        File.Delete(SavePath);
+    }
+
+    public static bool SaveExists() {
+        return File.Exists(SavePath);
     }
 }

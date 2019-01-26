@@ -9,6 +9,9 @@ public class FloatyController : MonoBehaviour
     BoxCollider2D river;
     private ItemController itemCtl;
     SpriteRenderer playerSprite;
+
+    private bool saved = false;
+    private GrabbableController grabbableCtl;
     // Use this for initialization
     void Start()
     {
@@ -19,6 +22,7 @@ public class FloatyController : MonoBehaviour
         playerSprite = transform.GetComponent<SpriteRenderer>();
         Interact();
         itemCtl = GetComponent<ItemController>();
+        grabbableCtl = GetComponent<GrabbableController>();
     }
 
 
@@ -39,22 +43,22 @@ public class FloatyController : MonoBehaviour
         {
             transform.position -= new Vector3(0, 1, 0) * Time.deltaTime;
 
-            float offset = oscillateOffset + Mathf.Sin(Time.time * 2.5f) * oscillateRange;
-            transform.localScale = new Vector3(offset, offset, 0);
-            if (offset > 0.9)
-            {
-                playerSprite.color = Color.white;
+            float offset = 1f;
+            if (!grabbableCtl.Grabbed) {
+                offset = oscillateOffset + Mathf.Sin(Time.time * 2.5f) * oscillateRange;
             }
-            else
-            {
-                playerSprite.color = new Color32(106,199,226,255);
-            }
+            transform.localScale = new Vector3(offset, offset, 1);
             if (myCollider.bounds.max.y < river.transform.GetComponent<RiverController>().endPos.y)
             {
-                Destroy(gameObject);
-                HttpsInterface.PutAnInstance(itemCtl.data.name);
+                if (!saved) {
+                    StartCoroutine(HttpsInterface.PutAnInstance(itemCtl.data.name, () => {
+                        Destroy(gameObject);
+                        gameObject.SetActive(false);
+                        DataManager.Save();
+                    }));
+                    saved = true;
+                }
             }
-            Debug.Log(playerSprite.color);
         }
         else
         {
