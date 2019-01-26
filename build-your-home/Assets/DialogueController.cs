@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour {
 
     private GameObject player;
-    private RectTransform rt;
-    private RectTransform canvasRT;
     private Vector3 guyScreenPos;
     private Camera camera;
     ItemController itemDetails;
@@ -17,8 +16,6 @@ public class DialogueController : MonoBehaviour {
         player = FindObjectOfType<MoveController>().transform.gameObject;
         transform.SetParent(FindObjectOfType<Canvas>().transform, true);
         camera = FindObjectOfType<Camera>();
-        rt = GetComponent<RectTransform>();
-        canvasRT = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
     }
 	
 	// Update is called once per frame
@@ -30,5 +27,20 @@ public class DialogueController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetItem(ItemController item)
+    {
+        itemDetails = item;
+        UpdateText();
+        
+    }
+
+    private void UpdateText()
+    {
+        GameObject.Find("Description").GetComponent<Text>().text = itemDetails.description;
+        GameObject.Find("SenderText").GetComponent<Text>().text = "Shared by: " + itemDetails.sender;
+        GameObject.Find("OwnerText").GetComponent<Text>().text = "Owned by: " + itemDetails.owner;
+
     }
 }
