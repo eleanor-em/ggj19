@@ -84,25 +84,31 @@ public class MoveController : MonoBehaviour {
         var dir = movement.normalized;
         var perp = Vector3.Cross(Vector3.forward, dir);
 
-        var hit = Physics2D.Raycast(transform.position, dir, movement.magnitude + ext, grabbableLayer);
-        if (hit.collider != null) {
-            var itemCtl = hit.collider.GetComponent<ItemController>();
-            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
-                return false;
+        var hits = Physics2D.RaycastAll(transform.position, dir, movement.magnitude + ext, grabbableLayer);
+        foreach (var hit in hits) {
+            if (hit.collider != null) {
+                var itemCtl = hit.collider.GetComponent<ItemController>();
+                if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                    return false;
+                }
             }
         }
-        hit = Physics2D.Raycast(transform.position + ext * perp, dir, movement.magnitude + ext, grabbableLayer);
-        if (hit.collider != null) {
-            var itemCtl = hit.collider.GetComponent<ItemController>();
-            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
-                return false;
+        hits = Physics2D.RaycastAll(transform.position + ext * perp, dir, movement.magnitude + ext, grabbableLayer);
+        foreach (var hit in hits) {
+            if (hit.collider != null) {
+                var itemCtl = hit.collider.GetComponent<ItemController>();
+                if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                    return false;
+                }
             }
         }
-        hit = Physics2D.Raycast(transform.position - ext * perp, dir, movement.magnitude + ext, grabbableLayer);
-        if (hit.collider != null) {
-            var itemCtl = hit.collider.GetComponent<ItemController>();
-            if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
-                return false;
+        hits = Physics2D.RaycastAll(transform.position - ext * perp, dir, movement.magnitude + ext, grabbableLayer);
+        foreach (var hit in hits) {
+            if (hit.collider != null) {
+                var itemCtl = hit.collider.GetComponent<ItemController>();
+                if (itemCtl != null && itemCtl.data.solid && grabCtl.GrabbedObject != itemCtl.gameObject) {
+                    return false;
+                }
             }
         }
         return true;

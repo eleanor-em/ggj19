@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class GrabController : MonoBehaviour {
     private MoveController moveController;
     private GrabbableController target = null;
     private bool holding = false;
+    private bool legalTarget = true;
 
     private void Start() {
         moveController = GetComponent<MoveController>();
@@ -32,6 +34,7 @@ public class GrabController : MonoBehaviour {
             // check the facing direction for a grabbable object
             var hit = Physics2D.Raycast(transform.position, moveController.Direction, 1, grabbableLayer.value);
             if (hit.collider != null) {
+                Debug.Log(hit.collider.name);
                 // if we hit something, check if it's both a grabbable and a different target
                 var hitController = hit.collider.GetComponent<GrabbableController>();
                 if (hitController?.gameObject != target?.gameObject) {
@@ -63,7 +66,7 @@ public class GrabController : MonoBehaviour {
             if (!holding) {
                 holding = true;
                 target.OnGrab();
-            } else {
+            } else if (legalTarget) {
                 holding = false;
                 target.OnDrop();
             }
@@ -75,6 +78,26 @@ public class GrabController : MonoBehaviour {
             Vector3 newPosition = SnapToPoint5(transform.position + moveController.Direction);
 
             target.transform.position = newPosition;
+
+            // check location
+            var filter = new ContactFilter2D();
+            filter.layerMask = grabbableLayer;
+            var results = new Collider2D[5];
+            var count = Physics2D.OverlapBox(new Vector2(newPosition.x, newPosition.y), Vector2.one * 0.1f, 0, filter, results);
+            count = results.Count(coll => {
+                if (coll != null) {
+                    var itemCtl = coll.GetComponent<ItemController>();
+                    return itemCtl?.data.solid == true;
+                }
+                return false;
+            });
+            if (count > 1) {
+                legalTarget = false;
+                target.OnIllegalPlacement();
+            } else {
+                legalTarget = true;
+                target.OnLegalPlacement();
+            }
         }
     }
 
