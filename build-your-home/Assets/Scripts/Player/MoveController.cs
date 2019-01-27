@@ -5,6 +5,9 @@ using System.Linq;
 using UnityEngine;
 
 public class MoveController : MonoBehaviour {
+    public AudioClip footstepClip;
+    public float minFootstepVolume = 0.4f;
+    public float maxFootstepVolume = 1f;
     public LayerMask grabbableLayer;
     public float Speed = 5.0f;
     public GameObject tileMap;
@@ -26,11 +29,14 @@ public class MoveController : MonoBehaviour {
     new private Collider2D collider;
     private GrabController grabCtl;
 
+    private AudioSource source;
+
     private void Start() {
         renderer = GetComponent<SpriteRenderer>();
         tileMapCollider = tileMap.GetComponent<Collider2D>();
         collider = GetComponent<Collider2D>();
         grabCtl = GetComponent<GrabController>();
+        source = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -75,7 +81,16 @@ public class MoveController : MonoBehaviour {
                 renderer.flipX = false;
             }
         }
-
+        
+        if (transform.position != prevPos) {
+            if (!source.isPlaying) {
+                source.clip = footstepClip;
+                source.volume = UnityEngine.Random.Range(minFootstepVolume, maxFootstepVolume);
+                source.Play();
+            }
+        } else if (source.clip == footstepClip) {
+            source.Stop();
+        }
     }
 
     private bool CheckRaycast(Vector3 movement) {

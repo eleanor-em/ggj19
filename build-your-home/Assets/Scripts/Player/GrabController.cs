@@ -11,6 +11,11 @@ public class GrabController : MonoBehaviour {
     [SerializeField]
     private GameObject heart;
 
+    public AudioClip grabSound;
+    public AudioClip dropSound;
+    public AudioClip grabWaterSound;
+    public AudioClip dropWaterSound;
+    private AudioSource source;
     public GameObject GrabbedObject {
         get { if (holding) { return target.gameObject; } else { return null; }}
     }
@@ -22,6 +27,7 @@ public class GrabController : MonoBehaviour {
 
     private void Start() {
         moveController = GetComponent<MoveController>();
+        source = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -52,23 +58,32 @@ public class GrabController : MonoBehaviour {
             }
         }
     }
-
+    
     private void CheckForInteract() {
         if (Input.GetButtonDown("Interact")) {
             GameObject dialogue = Instantiate(heart);
         }
     }
-
     private void CheckForGrabAction() {
         if (Input.GetButtonDown("Pickup") && target != null) {
             if (!holding) {
-                holding = true;
-                target.OnGrab();
-                ItemController item = target.transform.GetComponent<ItemController>();
+                ItemController item = target.GetComponent<ItemController>();
                 GameObject dialogue = Instantiate(dialogueBox);
                 dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
+                holding = true;
+
+                source.clip = target.GetComponent<FloatyController>().IsInRiver() ? grabWaterSound : grabSound;
+                source.volume = 1;
+                source.Play();
+                
+                target.OnGrab();
             } else if (legalTarget) {
                 holding = false;
+
+                source.clip = target.GetComponent<FloatyController>().IsInRiver() ? dropWaterSound : dropSound;
+                source.volume = 1;
+                source.Play();
+
                 target.OnDrop();
             }
         }
