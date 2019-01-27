@@ -226,7 +226,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c9f87a426cb53b04891c455c1550f031, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bebde8de59619a44987442a93c8276f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -244,8 +244,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 235388169}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.7234043, z: -2.04}
-  m_LocalScale: {x: 1.0638298, y: 1.0638298, z: 1}
+  m_LocalPosition: {x: -6.06, y: -2.84, z: -2.04}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 667053606}
   m_RootOrder: 1
@@ -302,7 +302,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e20c341ce2d58144fa2e3e5ded04dcc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: decae8bbc4ef0d742ab5b5b1575f8493, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -340,6 +340,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1973880678}
+  selected_Start: {fileID: 0}
+  unselected_Start: {fileID: 0}
+  selected_Randomize: {fileID: 0}
+  unelected_Randomize: {fileID: 0}
 --- !u!1 &768506773
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +413,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 768506773}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9631112, y: -0.07851092, z: 0}
+  m_LocalPosition: {x: -7.8, y: 0.5, z: -0.05}
   m_LocalScale: {x: 1.0638298, y: 1.0638298, z: 1}
   m_Children: []
   m_Father: {fileID: 667053606}
@@ -714,7 +718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -1}
+  m_AnchoredPosition: {x: -47.81, y: 11.3}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973880678
@@ -729,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -743,7 +747,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 297
-    m_Alignment: 2
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
