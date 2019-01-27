@@ -61,7 +61,7 @@ public class GrabController : MonoBehaviour {
     
     private void CheckForInteract() {
         if (Input.GetButtonDown("Interact")) {
-            GameObject dialogue = Instantiate(heart);
+            Instantiate(heart);
         }
     }
     private void CheckForGrabAction() {
