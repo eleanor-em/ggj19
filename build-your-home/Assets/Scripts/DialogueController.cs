@@ -43,8 +43,11 @@ public class DialogueController : MonoBehaviour {
     }
 
     private void UpdateText() {
-        description.text = itemDetails.data.description;
-        name.text = "Shared by: " + itemDetails.data.sender;
-        owner.text = "Owned by: " + itemDetails.data.owner;
+        if (description != null)
+        {
+            description.text = itemDetails.data.description;
+            name.text = "Shared by: " + itemDetails.data.sender;
+            owner.text = "Owned by: " + itemDetails.data.owner;
+        }
     }
 }
