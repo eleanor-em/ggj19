@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 254691639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 0.286, y: 0.286, z: 0.286}
+  m_LocalScale: {x: 0.21307, y: 0.21307, z: 0.21307}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -3099,6 +3099,7 @@ MonoBehaviour:
     m_Bits: 256
   dialogueBox: {fileID: 1467063009480840, guid: 915191a2872c2414098fa2a06d049aca,
     type: 2}
+  heart: {fileID: 1754636510104434, guid: 2b68b1f36829c414cb8fc62355af8f00, type: 2}
   grabSound: {fileID: 8300000, guid: 2df2c3b740d137844bfdc5d39fa01357, type: 3}
   dropSound: {fileID: 8300000, guid: 34fc5cad894e1dd4586b88518b313ec6, type: 3}
   grabWaterSound: {fileID: 8300000, guid: cc91c8847fdfee641ac4b25e61a021ef, type: 3}
