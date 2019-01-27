@@ -6,7 +6,14 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
     public Text text;
-
+    [SerializeField]
+    Sprite selected_Start;
+    [SerializeField]
+    Sprite unselected_Start;
+    [SerializeField]
+    Sprite selected_Randomize;
+    [SerializeField]
+    Sprite unelected_Randomize;
     private int selected = 0;
     private bool changed = false;
 
