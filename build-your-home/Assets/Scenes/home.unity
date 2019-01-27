@@ -3008,6 +3008,7 @@ MonoBehaviour:
     m_Bits: 256
   dialogueBox: {fileID: 1467063009480840, guid: 915191a2872c2414098fa2a06d049aca,
     type: 2}
+  heart: {fileID: 1754636510104434, guid: 2b68b1f36829c414cb8fc62355af8f00, type: 2}
 --- !u!1 &1746973667
 GameObject:
   m_ObjectHideFlags: 0
