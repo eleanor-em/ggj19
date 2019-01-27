@@ -36,6 +36,7 @@ public class GrabController : MonoBehaviour {
             // check the facing direction for a grabbable object
             var hit = Physics2D.Raycast(transform.position, moveController.Direction, 1, grabbableLayer.value);
             if (hit.collider != null) {
+                Debug.Log(hit.collider.name);
                 // if we hit something, check if it's both a grabbable and a different target
                 var hitController = hit.collider.GetComponent<GrabbableController>();
                 if (hitController?.gameObject != target?.gameObject) {
@@ -94,12 +95,6 @@ public class GrabController : MonoBehaviour {
             if (count > 1) {
                 legalTarget = false;
                 target.OnIllegalPlacement();
-                foreach (var coll in results) {
-                    if (coll != null) {
-                        //Debug.Log(coll.gameObject.GetComponent<ItemController>().data.name);
-                        Debug.Log(coll.name);
-                    }
-                }
             } else {
                 legalTarget = true;
                 target.OnLegalPlacement();
