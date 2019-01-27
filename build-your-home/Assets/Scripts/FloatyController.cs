@@ -29,7 +29,7 @@ public class FloatyController : MonoBehaviour {
         shouldFloat = IsInRiver();
     }
 
-    bool IsInRiver() {
+    public bool IsInRiver() {
         return (river.bounds.Contains(new Vector3(myCollider.bounds.min.x, myCollider.bounds.min.y, river.bounds.min.z))
             && river.bounds.Contains(new Vector3(myCollider.bounds.max.x, myCollider.bounds.max.y, river.bounds.max.z)));
     }
