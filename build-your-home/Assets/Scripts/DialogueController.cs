@@ -28,7 +28,7 @@ public class DialogueController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (gameObject.name.Contains("Heart")) {
+        if (transform.name == "Heart(Clone)") {
             guyScreenPos = camera.WorldToScreenPoint(player.transform.position);
             transform.position = guyScreenPos - new Vector3(0, 0, -1); ;
         }
@@ -44,8 +44,7 @@ public class DialogueController : MonoBehaviour {
     }
 
     private void UpdateText() {
-        if (description != null)
-        {
+        if (description != null) {
             description.text = itemDetails.data.description;
             name.text = "Shared by: " + itemDetails.data.sender;
             owner.text = "Owned by: " + itemDetails.data.owner;
