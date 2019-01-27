@@ -16,6 +16,13 @@ public class GrabbableController : MonoBehaviour {
         floatyController = transform.GetComponent<FloatyController>();
     }
 
+    public void OnIllegalPlacement() {
+        sprite.color = new Color(1, 0, 0, grabbedAlpha);
+    }
+    public void OnLegalPlacement() {
+        sprite.color = new Color(0, 1, 0, grabbedAlpha);
+    }
+
     public void OnSelect() {
         sprite.color = selectedCol;
     }
@@ -24,11 +31,13 @@ public class GrabbableController : MonoBehaviour {
     }
 
     public void OnGrab() {
+        sprite.sortingLayerName = "Selected";
         Grabbed = true;
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, grabbedAlpha);
     }
     public void OnDrop() {
         DataManager.Save();
+        sprite.sortingLayerName = "Default";
         Grabbed = false;
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
         floatyController.Interact();

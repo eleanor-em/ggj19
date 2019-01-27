@@ -19,8 +19,15 @@ public class ItemData {
 }
 public class ItemController : MonoBehaviour {
     public ItemData data;
+    private SpriteRenderer spriteRenderer;
+
+    private void Start() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void LateUpdate() {
+        spriteRenderer.sortingOrder = -(int)(transform.position.y * 10);
+
         data.x = transform.position.x;
         data.y = transform.position.y;
         data.z = transform.position.z;
