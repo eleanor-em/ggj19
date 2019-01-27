@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class KeepAlive : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
 
-	void Start () {
+	void Awake () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(0, 0, 0, 0);
         StartCoroutine(CheckServer());

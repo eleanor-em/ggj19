@@ -77,9 +77,6 @@ public class GrabController : MonoBehaviour {
                 source.Play();
                 
                 target.OnGrab();
-                ItemController item = target.transform.GetComponent<ItemController>();
-                GameObject dialogue = Instantiate(dialogueBox);
-                dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
             } else if (legalTarget) {
                 holding = false;
 
