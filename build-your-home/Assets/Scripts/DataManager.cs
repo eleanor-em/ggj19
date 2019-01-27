@@ -33,9 +33,6 @@ public class DataManager : MonoBehaviour {
         using (FileStream file = File.Create(SavePath)) {
             BinaryFormatter bf = new BinaryFormatter();
             var saveList = FindObjectsOfType<ItemController>().Select(comp => comp.data).ToList();
-            foreach (var data in saveList) {
-                Debug.Log(data.x);
-            }
             bf.Serialize(file, saveList);
             Debug.Log("saved!");
         }
