@@ -8,6 +8,8 @@ public class GrabController : MonoBehaviour {
     public LayerMask grabbableLayer;
     [SerializeField]
     private GameObject dialogueBox;
+    [SerializeField]
+    private GameObject heart;
 
     public AudioClip grabSound;
     public AudioClip dropSound;
@@ -29,6 +31,7 @@ public class GrabController : MonoBehaviour {
     }
 
     void Update() {
+        CheckForInteract();
         CheckForGrabbable();
         CheckForGrabAction();
         UpdateHeld();
@@ -55,7 +58,12 @@ public class GrabController : MonoBehaviour {
             }
         }
     }
-
+    
+    private void CheckForInteract() {
+        if (Input.GetButtonDown("Interact")) {
+            GameObject dialogue = Instantiate(heart);
+        }
+    }
     private void CheckForGrabAction() {
         if (Input.GetButtonDown("Pickup") && target != null) {
             if (!holding) {
@@ -69,6 +77,9 @@ public class GrabController : MonoBehaviour {
                 source.Play();
                 
                 target.OnGrab();
+                ItemController item = target.transform.GetComponent<ItemController>();
+                GameObject dialogue = Instantiate(dialogueBox);
+                dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
             } else if (legalTarget) {
                 holding = false;
 
