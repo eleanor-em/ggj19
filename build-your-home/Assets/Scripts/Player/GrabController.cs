@@ -8,6 +8,8 @@ public class GrabController : MonoBehaviour {
     public LayerMask grabbableLayer;
     [SerializeField]
     private GameObject dialogueBox;
+    [SerializeField]
+    private GameObject heart;
 
     public GameObject GrabbedObject {
         get { if (holding) { return target.gameObject; } else { return null; }}
@@ -51,12 +53,8 @@ public class GrabController : MonoBehaviour {
     }
 
     private void CheckForInteract() {
-        if (Input.GetButtonDown("Interact") && target != null) {
-            if (!holding) {
-                ItemController item = target.transform.GetComponent<ItemController>();
-                GameObject dialogue = Instantiate(dialogueBox);
-                dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
-            }
+        if (Input.GetButtonDown("Interact")) {
+            GameObject dialogue = Instantiate(heart);
         }
     }
 
@@ -65,6 +63,9 @@ public class GrabController : MonoBehaviour {
             if (!holding) {
                 holding = true;
                 target.OnGrab();
+                ItemController item = target.transform.GetComponent<ItemController>();
+                GameObject dialogue = Instantiate(dialogueBox);
+                dialogue.GetComponentInChildren<DialogueController>().SetItem(item);
             } else if (legalTarget) {
                 holding = false;
                 target.OnDrop();
